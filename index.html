@@ -45,7 +45,7 @@
             box-shadow: 0 20px 25px -5px rgba(6, 182, 212, 0.2);
         }
         /* Popular badge */
-        .popular-badge {
+        .Popular-badge {
             position: absolute;
             top: -12px;
             right: -12px;
@@ -58,12 +58,85 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
+        /* Mobile menu styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        }
+        .mobile-menu.active {
+            right: 0;
+        }
+        .mobile-menu-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #0f172a;
+        }
+        .mobile-menu-nav {
+            padding: 1.5rem;
+        }
+        .mobile-menu-nav a {
+            display: block;
+            padding: 0.75rem 0;
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .mobile-menu-nav a:last-child {
+            border-bottom: none;
+        }
+        .mobile-menu-cta {
+            padding: 0 1.5rem 1.5rem;
+        }
+        .mobile-menu-cta a {
+            display: block;
+            text-align: center;
+            background: #06B6D4;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         .automate {
             background-image: url('https://raw.githubusercontent.com/parmar42/images/main/assets/vecteezy_data-management-on-laptop-digital-documents-analytics-and_66608383.jpg');
             height: 100vh;
             background-size: cover;
         }
-        
     </style>
 </head>
 <body class="font-sans text-slate-800 overflow-x-hidden">
@@ -71,8 +144,9 @@
     <!-- Header -->
     <header class="bg-white/70 backdrop-blur-3xl fixed w-full top-0 z-50 shadow-sm">
         <nav class="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex justify-between items-center">
-            <img src="https://raw.githubusercontent.com/parmar42/images/main/assets/arrilan%20logo%204.png" width="150" alt="arrilan-logo">
+            <img src="https://raw.githubusercontent.com/parmar42/images/main/assets/arrilan%20logo%204.png" width="150" atl= "arrilan-logo">
             
+            <!-- Desktop Navigation -->
             <ul class="hidden md:flex gap-8 items-center">
                 <li><a href="#solutions" class="text-slate-800 font-medium hover:text-accent transition-colors">Solutions</a></li>
                 <li><a href="#pricing" class="text-slate-800 font-medium hover:text-accent transition-colors">Pricing</a></li>
@@ -85,35 +159,47 @@
                 Get Started
             </a>
             
-            <button class="md:hidden text-primary text-2xl p-2" id="mobile-menu-btn" aria-label="Toggle Menu">
-                <i data-lucide="menu" id="menu-icon"></i>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-primary text-2xl" id="mobile-menu-btn">
+                <i data-lucide="menu"></i>
             </button>
         </nav>
-
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 absolute w-full left-0 shadow-xl animate-fade-in-up">
-            <ul class="flex flex-col p-6 gap-4">
-                <li><a href="#solutions" class="mobile-link text-lg font-semibold text-slate-800">Solutions</a></li>
-                <li><a href="#pricing" class="mobile-link text-lg font-semibold text-slate-800">Pricing</a></li>
-                <li><a href="#how-it-works" class="mobile-link text-lg font-semibold text-slate-800">How It Works</a></li>
-                <li><a href="#industries" class="mobile-link text-lg font-semibold text-slate-800">Industries</a></li>
-                <li><a href="#contact" class="mobile-link text-lg font-semibold text-slate-800">Contact</a></li>
-                <hr class="border-slate-100">
-                <li><a href="#contact" class="mobile-link block bg-accent text-white text-center py-4 rounded-lg font-bold">Get Started</a></li>
-            </ul>
-        </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <img src="https://placehold.co/150x40?text=AutoFlow" width="120" alt="AutoFlow Logo">
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <nav class="mobile-menu-nav">
+            <a href="#solutions">Solutions</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#industries">Industries</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="mobile-menu-cta">
+            <a href="#contact">Get Started</a>
+        </div>
+    </div>
 
     <!-- Welcome Image-->
 
     <div class="automate"></div>
 
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
     <!-- Hero Section -->
-        <section class="bg-gradient-to-br from-primary to-slate-800 text-white pt-32 pb-24 px-6 lg:px-8">
+    <section class="bg-gradient-to-br from-primary to-slate-800 text-white pt-32 pb-24 px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center">
             <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight animate-fade-in-up">
                 Automate Your Business. Scale Without Limits.
             </h1>
-            <p class="text-xl md:text-2xl text-slate-300 mb-10 animate-fade-in-up animate-delay-200" >
+            <p class="text-xl md:text-2xl text-slate-300 mb-10 animate-fade-in-up animate-delay-200">
                 Custom automation systems that solve real problems for restaurants, agencies, and growing businesses worldwide.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animate-delay-400">
@@ -395,7 +481,7 @@
 
                 <!-- Professional Plan -->
                 <div class="pricing-card bg-slate-50 rounded-2xl p-8 border-2 border-accent relative transition-all duration-300">
-                    <div class="popular-badge">MOST POPULAR</div>
+                    <div class="Popular-badge">MOST POPULAR</div>
                     <h3 class="text-2xl font-bold text-primary mb-2">Professional</h3>
                     <div class="mb-6">
                         <span class="text-4xl font-bold text-primary">BB$299</span>
@@ -553,49 +639,43 @@
             <p class="text-xl mb-12 text-white/90">Free 30-minute consultation. No commitment required.</p>
             
             <div class="bg-white p-8 md:p-12 rounded-2xl shadow-2xl">
-                <!-- Replace the existing form section with this -->
-<form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
-    <!-- Hidden field for your access key -->
-    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-    
-    <!-- Optional: Custom subject line -->
-    <input type="hidden" name="subject" value="New Contact Form Submission from AutoFlow Systems">
-    
-    <!-- Optional: Redirect after submission -->
-    <input type="hidden" name="redirect" value="https://yourwebsite.com/thank-you.html">
-    
-    <div class="text-left">
-        <label for="name" class="block text-primary font-semibold mb-2">Full Name</label>
-        <input type="text" id="name" name="name" required class="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-accent focus:outline-none text-slate-800 transition-colors">
-    </div>
-    
-    <div class="text-left">
-        <label for="email" class="block text-primary font-semibold mb-2">Email Address</label>
-        <input type="email" id="email" name="email" required class="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-accent focus:outline-none text-slate-800 transition-colors">
-    </div>
-    
-    <div class="text-left">
-        <label for="business" class="block text-primary font-semibold mb-2">Business Type</label>
-        <select id="business" name="business" required class="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-accent focus:outline-none text-slate-800 transition-colors">
-            <option value="">Select your industry</option>
-            <option value="restaurant">Restaurant / Cafe</option>
-            <option value="agency">Marketing Agency</option>
-            <option value="retail">Retail / E-commerce</option>
-            <option value="service">Service Business</option>
-            <option value="other">Other</option>
-        </select>
-    </div>
-    
-    <div class="text-left">
-        <label for="challenge" class="block text-primary font-semibold mb-2">Biggest Challenge</label>
-        <textarea id="challenge" name="challenge" rows="4" placeholder="Tell us what you're struggling with..." class="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-accent focus:outline-none text-slate-800 transition-colors"></textarea>
-    </div>
-    
-    <button type="submit" class="w-full bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:-translate-y-1 hover:shadow-xl transition-all inline-flex items-center justify-center gap-2">
-        Get Your Free Automation Plan
-        <i data-lucide="send" class="w-5 h-5"></i>
-    </button>
-</form>
+                <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                    <input type="hidden" name="subject" value="New Contact Form Submission from AutoFlow Systems">
+                    <input type="hidden" name="redirect" value="https://yourwebsite.com/thank-you.html">
+                    
+                    <div class="text-left">
+                        <label for="name" class="block text-primary font-semibold mb-2">Full Name</label>
+                        <input type="text" id="name" name="name" required class="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-accent focus:outline-none text-slate-800 transition-colors">
+                    </div>
+                    
+                    <div class="text-left">
+                        <label for="email" class="block text-primary font-semibold mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" required class="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-accent focus:outline-none text-slate-800 transition-colors">
+                    </div>
+                    
+                    <div class="text-left">
+                        <label for="business" class="block text-primary font-semibold mb-2">Business Type</label>
+                        <select id="business" name="business" required class="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-accent focus:outline-none text-slate-800 transition-colors">
+                            <option value="">Select your industry</option>
+                            <option value="restaurant">Restaurant / Cafe</option>
+                            <option value="agency">Marketing Agency</option>
+                            <option value="retail">Retail / E-commerce</option>
+                            <option value="service">Service Business</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="text-left">
+                        <label for="challenge" class="block text-primary font-semibold mb-2">Biggest Challenge</label>
+                        <textarea id="challenge" name="challenge" rows="4" placeholder="Tell us what you're struggling with..." class="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-accent focus:outline-none text-slate-800 transition-colors"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:-translate-y-1 hover:shadow-xl transition-all inline-flex items-center justify-center gap-2">
+                        Get Your Free Automation Plan
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </section>
@@ -667,8 +747,40 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
+                    
+                    // Close mobile menu after clicking
+                    closeMobileMenu();
                 }
             });
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('overlay');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = ''; // Restore background scroll
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+
+        // Close menu when resizing to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
         });
 
         // Form submission
@@ -684,42 +796,9 @@
                 header.classList.add('shadow-md');
             } else {
                 header.classList.remove('shadow-md');
-          // Initialize Lucide icons
-        lucide.createIcons();
-
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            // Toggle the 'hidden' class
-            const isExpanded = mobileMenu.classList.toggle('hidden');
-            
-            // Change icon between 'menu' and 'x' (requires Lucide)
-            if (!isExpanded) {
-                menuIcon.setAttribute('data-lucide', 'x');
-            } else {
-                menuIcon.setAttribute('data-lucide', 'menu');
+                header.classList.add('shadow-sm');
             }
-            lucide.createIcons(); // Refresh icons to show the change
         });
-
-        // Close menu when a link is clicked
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                menuIcon.setAttribute('data-lucide', 'menu');
-                lucide.createIcons();
-            });
-        });      header.classList.add('shadow-sm');
-                }
-            });
-
-            // Mobile menu toggle (basic implementation)
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            mobileMenuBtn.addEventListener('click', function() {
-                alert('Mobile menu functionality can be enhanced based on your needs!');
-            });
     </script>
 </body>
 </html>
