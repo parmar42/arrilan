@@ -63,9 +63,7 @@
             height: 100vh;
             background-size: cover;
         }
-        .logo {
-            ;
-        }   
+        
     </style>
 </head>
 <body class="font-sans text-slate-800 overflow-x-hidden">
@@ -73,9 +71,8 @@
     <!-- Header -->
     <header class="bg-white/70 backdrop-blur-3xl fixed w-full top-0 z-50 shadow-sm">
         <nav class="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex justify-between items-center">
-            <img src="https://raw.githubusercontent.com/parmar42/images/main/assets/arrilan%20logo%204.png" width="150" atl= "arrilan-logo">
+            <img src="https://raw.githubusercontent.com/parmar42/images/main/assets/arrilan%20logo%204.png" width="150" alt="arrilan-logo">
             
-            <!-- Desktop Navigation -->
             <ul class="hidden md:flex gap-8 items-center">
                 <li><a href="#solutions" class="text-slate-800 font-medium hover:text-accent transition-colors">Solutions</a></li>
                 <li><a href="#pricing" class="text-slate-800 font-medium hover:text-accent transition-colors">Pricing</a></li>
@@ -88,11 +85,22 @@
                 Get Started
             </a>
             
-            <!-- Mobile Menu Button -->
-            <button class="md:hidden text-primary text-2xl" id="mobile-menu-btn">
-                <i data-lucide="menu"></i>
+            <button class="md:hidden text-primary text-2xl p-2" id="mobile-menu-btn" aria-label="Toggle Menu">
+                <i data-lucide="menu" id="menu-icon"></i>
             </button>
         </nav>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 absolute w-full left-0 shadow-xl animate-fade-in-up">
+            <ul class="flex flex-col p-6 gap-4">
+                <li><a href="#solutions" class="mobile-link text-lg font-semibold text-slate-800">Solutions</a></li>
+                <li><a href="#pricing" class="mobile-link text-lg font-semibold text-slate-800">Pricing</a></li>
+                <li><a href="#how-it-works" class="mobile-link text-lg font-semibold text-slate-800">How It Works</a></li>
+                <li><a href="#industries" class="mobile-link text-lg font-semibold text-slate-800">Industries</a></li>
+                <li><a href="#contact" class="mobile-link text-lg font-semibold text-slate-800">Contact</a></li>
+                <hr class="border-slate-100">
+                <li><a href="#contact" class="mobile-link block bg-accent text-white text-center py-4 rounded-lg font-bold">Get Started</a></li>
+            </ul>
+        </div>
     </header>
 
     <!-- Welcome Image-->
@@ -676,15 +684,42 @@
                 header.classList.add('shadow-md');
             } else {
                 header.classList.remove('shadow-md');
-                header.classList.add('shadow-sm');
+          // Initialize Lucide icons
+        lucide.createIcons();
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            // Toggle the 'hidden' class
+            const isExpanded = mobileMenu.classList.toggle('hidden');
+            
+            // Change icon between 'menu' and 'x' (requires Lucide)
+            if (!isExpanded) {
+                menuIcon.setAttribute('data-lucide', 'x');
+            } else {
+                menuIcon.setAttribute('data-lucide', 'menu');
             }
+            lucide.createIcons(); // Refresh icons to show the change
         });
 
-        // Mobile menu toggle (basic implementation)
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        mobileMenuBtn.addEventListener('click', function() {
-            alert('Mobile menu functionality can be enhanced based on your needs!');
-        });
+        // Close menu when a link is clicked
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });      header.classList.add('shadow-sm');
+                }
+            });
+
+            // Mobile menu toggle (basic implementation)
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            mobileMenuBtn.addEventListener('click', function() {
+                alert('Mobile menu functionality can be enhanced based on your needs!');
+            });
     </script>
 </body>
 </html>
