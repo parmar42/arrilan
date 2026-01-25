@@ -58,6 +58,80 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
+        /* Mobile menu styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        }
+        .mobile-menu.active {
+            right: 0;
+        }
+        .mobile-menu-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #0f172a;
+        }
+        .mobile-menu-nav {
+            padding: 1.5rem;
+        }
+        .mobile-menu-nav a {
+            display: block;
+            padding: 0.75rem 0;
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .mobile-menu-nav a:last-child {
+            border-bottom: none;
+        }
+        .mobile-menu-cta {
+            padding: 0 1.5rem 1.5rem;
+        }
+        .mobile-menu-cta a {
+            display: block;
+            text-align: center;
+            background: #06B6D4;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         .automate {
             background-image: url('https://raw.githubusercontent.com/parmar42/images/main/assets/vecteezy_data-management-on-laptop-digital-documents-analytics-and_66608383.jpg');
             height: 100vh;
@@ -94,9 +168,32 @@
         </nav>
     </header>
 
+     <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <img src="https://placehold.co/150x40?text=AutoFlow" width="120" alt="AutoFlow Logo">
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <nav class="mobile-menu-nav">
+            <a href="#solutions">Solutions</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#industries">Industries</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="mobile-menu-cta">
+            <a href="#contact">Get Started</a>
+        </div>
+    </div>
+
     <!-- Welcome Image-->
 
     <div class="automate"></div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
 
     <!-- Hero Section -->
         <section class="bg-gradient-to-br from-primary to-slate-800 text-white pt-32 pb-24 px-6 lg:px-8">
@@ -675,10 +772,44 @@ Our mission is to eliminate the "manual everything" approach that often hinders 
                     target.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
-                    });
+                 
+        });
+
+        // Close mobile menu after clicking
+                    closeMobileMenu();
                 }
             });
         });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('overlay');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = ''; // Restore background scroll
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+
+        // Close menu when resizing to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        });
+
 
         // Form submission
         document.querySelector('form').addEventListener('submit', function(e) {
@@ -697,11 +828,7 @@ Our mission is to eliminate the "manual everything" approach that often hinders 
             }
         });
 
-        // Mobile menu toggle (basic implementation)
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        mobileMenuBtn.addEventListener('click', function() {
-            alert('Mobile menu functionality can be enhanced based on your needs!');
-        });
+    
     </script>
 </body>
 </html>
