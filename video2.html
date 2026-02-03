@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video - AutoFlow Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F172A',
+                        accent: '#06B6D4',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Responsive video container that maintains aspect ratio */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+        }
+        
+        /* Mobile: no border radius for edge-to-edge look */
+        @media (max-width: 768px) {
+            .video-container iframe {
+                border-radius: 0;
+            }
+        }
+        
+        /* Default 16:9 aspect ratio */
+        .aspect-16-9 {
+            padding-bottom: 56.25%; /* 9/16 = 0.5625 */
+        }
+        
+        /* 4:3 aspect ratio */
+        .aspect-4-3 {
+            padding-bottom: 75%; /* 3/4 = 0.75 */
+        }
+        
+        /* 1:1 square */
+        .aspect-1-1 {
+            padding-bottom: 100%;
+        }
+        
+        /* 9:16 vertical (mobile/stories) */
+        .aspect-9-16 {
+            padding-bottom: 177.78%; /* 16/9 = 1.7778 */
+            max-width: 600px;
+        }
+        
+        /* 21:9 ultrawide */
+        .aspect-21-9 {
+            padding-bottom: 42.86%; /* 9/21 = 0.4286 */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col">
+    
+    <!-- Header - Compact on mobile -->
+    <header class="bg-white shadow-sm">
+        <nav class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-3 md:py-4">
+            <a href="index.html"><img src="https://raw.githubusercontent.com/parmar42/images/main/assets/arrilan%20logo%204.png" width="150" alt="arrilan-logo">
+            </a>
+        </nav>
+    </header>
+
+    <!-- Video Section - Minimal padding on mobile, centered vertically -->
+    <main class="flex-grow flex items-center justify-center p-2 md:p-6 lg:p-12">
+        <div class="w-full max-w-6xl">
+            
+            <!-- Optional: Video Title - Hidden on mobile, visible on tablet+ -->
+            <div class="text-center mb-3 md:mb-8 px-4 md:px-0 hidden md:block">
+                <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-2 md:mb-3">
+                    Watch Our Demo
+                </h1>
+                <p class="text-base md:text-lg text-slate-600">
+                    See how AutoFlow Systems transforms your business
+                </p>
+            </div>
+
+            <!-- Video Container - Full width on mobile, contained on desktop -->
+            <!-- Mobile: edge-to-edge | Desktop: with padding -->
+            <div class="video-container aspect-16-9 md:px-0">
+                <!-- 
+                    REPLACE THIS IFRAME WITH YOUR VIDEO EMBED CODE
+                    
+                    For YouTube:
+                    1. Go to your video
+                    2. Click Share → Embed
+                    3. Copy the iframe code
+                    4. Paste it here (replace the example below)
+                    
+                    For Vimeo:
+                    1. Go to your video
+                    2. Click Share → Embed
+                    3. Copy the iframe code
+                    4. Paste it here
+                -->
+                <iframe 
+                    src="https://player.vimeo.com/video/1160914027?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                    width="720" height="1280" frameborder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" title="Arrilan Tap & Serve Demo">
+                </iframe>
+                
+            </div>
+
+            <!-- Optional: Back Button - Compact on mobile -->
+            <div class="text-center mt-4 md:mt-8 px-4 md:px-0">
+                <a href="index.html#whats-included" class="inline-flex items-center gap-2 bg-accent text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:-translate-y-1 hover:shadow-lg transition-all">
+                    Back to Home
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer - Compact on mobile -->
+    <footer class="bg-primary text-white py-4 md:py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 text-center">
+            <p class="text-xs md:text-base text-slate-400">© 2026 AutoFlow Systems. Made in Barbados 🇧🇧</p>
+        </div>
+    </footer>
+
+</body>
+</html>
