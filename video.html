@@ -35,7 +35,7 @@
             border-radius: 12px;
         }
         
-        /* 9:16 vertical video - responsive sizing */
+        /* Base 9:16 aspect ratio */
         .aspect-9-16 {
             padding-bottom: 177.78%; /* 16/9 = 1.7778 */
         }
@@ -43,13 +43,13 @@
         /* Mobile: limit height to fit viewport */
         @media (max-width: 768px) {
             .video-wrapper {
-                max-height: calc(100vh - 200px); /* Viewport height minus header/footer space */
+                max-height: calc(100vh - 200px);
             }
             
             .aspect-9-16 {
                 padding-bottom: 0;
                 height: calc(100vh - 200px);
-                max-width: calc((100vh - 200px) * 0.5625); /* Maintain 9:16 ratio */
+                max-width: calc((100vh - 200px) * 0.5625);
             }
             
             .video-container iframe {
@@ -57,28 +57,46 @@
             }
         }
         
-        /* Tablet: slightly larger */
+        /* Tablet: controlled height */
         @media (min-width: 769px) and (max-width: 1024px) {
             .video-wrapper {
-                max-height: calc(100vh - 250px);
+                max-height: calc(100vh - 280px);
             }
             
             .aspect-9-16 {
-                max-width: 450px;
+                padding-bottom: 0;
+                height: calc(100vh - 280px);
+                max-width: calc((100vh - 280px) * 0.5625);
             }
         }
         
-        /* Desktop: controlled width */
+        /* Laptop/Desktop: ensure it fits in viewport */
         @media (min-width: 1025px) {
+            .video-wrapper {
+                max-height: calc(100vh - 320px); /* Account for header, title, button, footer */
+            }
+            
             .aspect-9-16 {
-                max-width: 500px;
+                padding-bottom: 0;
+                height: calc(100vh - 320px);
+                max-width: calc((100vh - 320px) * 0.5625); /* Maintain 9:16 ratio */
+                max-width: min(calc((100vh - 320px) * 0.5625), 550px); /* Cap at 550px */
+            }
+        }
+        
+        /* Large Desktop: cap the size */
+        @media (min-width: 1440px) {
+            .aspect-9-16 {
+                max-width: 600px;
+                height: auto;
+                padding-bottom: 177.78%;
             }
         }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col">
     
-    <!-- Header - Compact on mobile -->
+    <!-- Header - Compact -->
     <header class="bg-white shadow-sm">
        <nav class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-3 md:py-4 flex justify-between items-center">
             <a href="index.html">
@@ -90,21 +108,21 @@
         </nav>
     </header>
 
-    <!-- Video Section - Ensures video stays in viewport -->
-    <main class="flex-grow flex items-center justify-center py-4 md:py-6 lg:py-12 px-4 md:px-6">
+    <!-- Video Section - Flexible height -->
+    <main class="flex-grow flex items-center justify-center py-3 md:py-4 lg:py-6 px-4 md:px-6">
         <div class="w-full max-w-6xl flex flex-col items-center">
             
-            <!-- Video Title - Compact on mobile -->
-            <div class="text-center mb-4 md:mb-6 lg:mb-8">
-                <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-2 md:mb-3">
+            <!-- Video Title - Compact -->
+            <div class="text-center mb-3 md:mb-4 lg:mb-6">
+                <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-primary mb-1 md:mb-2">
                     Watch Tap & Serve Demo
                 </h1>
-                <p class="text-base md:text-lg text-slate-600">
+                <p class="text-sm md:text-base lg:text-lg text-slate-600">
                     See how Arrilan Systems transforms your business
                 </p>
             </div>
 
-            <!-- Video Wrapper - Constrains height on mobile -->
+            <!-- Video Wrapper - Constrains height on all devices -->
             <div class="video-wrapper w-full flex justify-center">
                 <!-- Video Container - Maintains aspect ratio -->
                 <div class="video-container aspect-9-16">
@@ -117,8 +135,8 @@
                 </div>
             </div>
 
-            <!-- Back Button - Compact on mobile -->
-            <div class="text-center mt-4 md:mt-6 lg:mt-8">
+            <!-- Back Button - Compact -->
+            <div class="text-center mt-3 md:mt-4 lg:mt-6">
                 <a href="index.html#whats-included" class="inline-flex items-center gap-2 bg-accent text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:-translate-y-1 hover:shadow-lg transition-all">
                     Back to Home
                 </a>
@@ -127,8 +145,8 @@
         </div>
     </main>
 
-    <!-- Footer - Compact on mobile -->
-    <footer class="bg-primary text-white py-4 md:py-6 lg:py-8">
+    <!-- Footer - Compact -->
+    <footer class="bg-primary text-white py-3 md:py-4 lg:py-6">
         <div class="max-w-7xl mx-auto px-4 md:px-6 text-center">
             <p class="text-xs md:text-sm text-slate-400">© 2026 Arrilan Systems. Made in Barbados 🇧🇧</p>
         </div>
