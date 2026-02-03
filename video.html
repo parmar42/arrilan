@@ -18,11 +18,14 @@
         }
     </script>
     <style>
-        /* Responsive video container that maintains aspect ratio */
+        body {
+            overflow: hidden; /* Prevent any scroll */
+        }
+        
         .video-container {
             position: relative;
             width: 100%;
-            margin: 0 auto;
+            height: 100%;
         }
         
         .video-container iframe {
@@ -32,123 +35,70 @@
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: 12px;
         }
         
-        /* Base 9:16 aspect ratio */
-        .aspect-9-16 {
-            padding-bottom: 177.78%; /* 16/9 = 1.7778 */
+        /* Calculate available space and center video */
+        .video-wrapper {
+            height: calc(100vh - 140px); /* Total viewport minus header and footer */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        /* Mobile: limit height to fit viewport */
+        .video-inner {
+            width: auto;
+            height: 100%;
+            max-height: 100%;
+            aspect-ratio: 9 / 16;
+            max-width: 90vw;
+        }
+        
         @media (max-width: 768px) {
             .video-wrapper {
-                max-height: calc(100vh - 200px);
+                height: calc(100vh - 120px);
             }
             
-            .aspect-9-16 {
-                padding-bottom: 0;
-                height: calc(100vh - 200px);
-                max-width: calc((100vh - 200px) * 0.5625);
-            }
-            
-            .video-container iframe {
-                border-radius: 8px;
-            }
-        }
-        
-        /* Tablet: controlled height */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .video-wrapper {
-                max-height: calc(100vh - 280px);
-            }
-            
-            .aspect-9-16 {
-                padding-bottom: 0;
-                height: calc(100vh - 280px);
-                max-width: calc((100vh - 280px) * 0.5625);
-            }
-        }
-        
-        /* Laptop/Desktop: ensure it fits in viewport */
-        @media (min-width: 1025px) {
-            .video-wrapper {
-                max-height: calc(100vh - 320px); /* Account for header, title, button, footer */
-            }
-            
-            .aspect-9-16 {
-                padding-bottom: 0;
-                height: calc(100vh - 320px);
-                max-width: calc((100vh - 320px) * 0.5625); /* Maintain 9:16 ratio */
-                max-width: min(calc((100vh - 320px) * 0.5625), 550px); /* Cap at 550px */
-            }
-        }
-        
-        /* Large Desktop: cap the size */
-        @media (min-width: 1440px) {
-            .aspect-9-16 {
-                max-width: 600px;
-                height: auto;
-                padding-bottom: 177.78%;
+            .video-inner {
+                max-width: 100vw;
             }
         }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen flex flex-col">
+<body class="bg-black">
     
-    <!-- Header - Compact -->
-    <header class="bg-white shadow-sm">
-       <nav class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-3 md:py-4 flex justify-between items-center">
-            <a href="index.html">
+    <!-- Minimal Header -->
+    <header class="bg-black border-b border-slate-800">
+        <nav class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="opacity-80 hover:opacity-100 transition-opacity">
                 <img src="https://raw.githubusercontent.com/parmar42/images/main/assets/arrilan%20logo%204.png" 
-                     width="120" 
-                     class="md:w-[150px]" 
+                     class="h-8 md:h-10" 
                      alt="arrilan-logo">
+            </a>
+            <a href="index.html#whats-included" class="text-white text-sm md:text-base opacity-80 hover:opacity-100 transition-opacity">
+                ← Back
             </a>
         </nav>
     </header>
 
-    <!-- Video Section - Flexible height -->
-    <main class="flex-grow flex items-center justify-center py-3 md:py-4 lg:py-6 px-4 md:px-6">
-        <div class="w-full max-w-6xl flex flex-col items-center">
-            
-            <!-- Video Title - Compact -->
-            <div class="text-center mb-3 md:mb-4 lg:mb-6">
-                <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-primary mb-1 md:mb-2">
-                    Watch Tap & Serve Demo
-                </h1>
-                <p class="text-sm md:text-base lg:text-lg text-slate-600">
-                    See how Arrilan Systems transforms your business
-                </p>
-            </div>
-
-            <!-- Video Wrapper - Constrains height on all devices -->
-            <div class="video-wrapper w-full flex justify-center">
-                <!-- Video Container - Maintains aspect ratio -->
-                <div class="video-container aspect-9-16">
-                    <iframe src="https://player.vimeo.com/video/1160914027?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=0&amp;loop=1" 
+    <!-- Video Section - Takes all available space -->
+    <main class="video-wrapper">
+        <div class="video-inner">
+            <div class="video-container">
+                <iframe 
+                    src="https://player.vimeo.com/video/1160914027?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
                     frameborder="0" 
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" 
+                    allowfullscreen
                     title="Arrilan Tap &amp; Serve">
-                    </iframe>
-                </div>
+                </iframe>
             </div>
-
-            <!-- Back Button - Compact -->
-            <div class="text-center mt-3 md:mt-4 lg:mt-6">
-                <a href="index.html#whats-included" class="inline-flex items-center gap-2 bg-accent text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:-translate-y-1 hover:shadow-lg transition-all">
-                    Back to Home
-                </a>
-            </div>
-
         </div>
     </main>
 
-    <!-- Footer - Compact -->
-    <footer class="bg-primary text-white py-3 md:py-4 lg:py-6">
-        <div class="max-w-7xl mx-auto px-4 md:px-6 text-center">
-            <p class="text-xs md:text-sm text-slate-400">© 2026 Arrilan Systems. Made in Barbados 🇧🇧</p>
+    <!-- Minimal Footer -->
+    <footer class="bg-black border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 py-3 text-center">
+            <p class="text-slate-500 text-xs md:text-sm">© 2026 Arrilan Systems</p>
         </div>
     </footer>
 
