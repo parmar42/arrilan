@@ -1092,5 +1092,44 @@
 
         setTimeout(() => lucide.createIcons(), 100);
     </script>
+    <script>
+    // Currency Toggle Script
+    const toggle = document.getElementById('currencyToggle');
+    const toggleCircle = toggle.querySelector('span');
+    const currencySymbols = document.querySelectorAll('.currency-symbol');
+    const priceAmounts = document.querySelectorAll('.price-amount');
+    let isUSD = false;
+
+    toggle.addEventListener('click', function() {
+        isUSD = !isUSD;
+        
+        // Toggle visual state
+        if (isUSD) {
+            toggle.classList.remove('bg-slate-300');
+            toggle.classList.add('bg-accent');
+            toggleCircle.classList.remove('translate-x-1');
+            toggleCircle.classList.add('translate-x-7');
+            toggle.setAttribute('aria-checked', 'true');
+        } else {
+            toggle.classList.remove('bg-accent');
+            toggle.classList.add('bg-slate-300');
+            toggleCircle.classList.remove('translate-x-7');
+            toggleCircle.classList.add('translate-x-1');
+            toggle.setAttribute('aria-checked', 'false');
+        }
+        
+        // Update currency symbols
+        currencySymbols.forEach(symbol => {
+            symbol.textContent = isUSD ? '$' : 'BB$';
+        });
+        
+        // Update all prices
+        priceAmounts.forEach(amount => {
+            const bbd = amount.getAttribute('data-bbd');
+            const usd = amount.getAttribute('data-usd');
+            amount.textContent = isUSD ? usd : bbd;
+        });
+    });
+</script>
 </body>
 </html>
