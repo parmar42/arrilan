@@ -1130,26 +1130,26 @@
             amount.textContent = isUSD ? usd : bbd;
         });
     });
-</script>
-<script>
-  let botLoaded = false;
-  
-  function loadBot() {
-    if (botLoaded) return;
-    botLoaded = true;
+
+    let botLoaded = false;
     
-    const botScript = document.createElement('script');
-    botScript.defer = true;
-    botScript.src = 'https://bot-8yai.onrender.com//widget.js';
-    botScript.setAttribute('data-bot-id', 'c7d73f15-823e-4332-9695-888e8d25193a');
-    document.body.appendChild(botScript);
-  }
-  
-  // Load on first scroll, mousemove, or after 3 seconds
-  window.addEventListener('scroll', loadBot, { once: true });
-  window.addEventListener('mousemove', loadBot, { once: true });
-  window.addEventListener('touchstart', loadBot, { once: true });
-  setTimeout(loadBot, 3000); // Fallback after 3 seconds
+    function loadBot() {
+        if (botLoaded) return;
+        botLoaded = true;
+        
+        const botScript = document.createElement('script');
+        botScript.defer = true;
+        botScript.src = 'https://bot-8yai.onrender.com//widget.js';
+        botScript.setAttribute('data-bot-id', 'c7d73f15-823e-4332-9695-888e8d25193a');
+        document.body.appendChild(botScript);
+    }
+    
+    // Load on first scroll, mousemove, or after 3 seconds
+    window.addEventListener('scroll', loadBot, { once: true });
+    window.addEventListener('mousemove', loadBot, { once: true });
+    window.addEventListener('touchstart', loadBot, { once: true });
+    setTimeout(loadBot, 3000); // Fallback after 3 seconds
+
 </script>
 
 
