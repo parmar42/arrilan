@@ -501,11 +501,7 @@
         }
 
     /* Better checkbox alignment */
-    .form-group-signup input[type="checkbox"] {
-        margin: 0;
-        cursor: pointer;
-    }
-
+   
     .form-group-signup label.flex {
         cursor: pointer;
     }
@@ -941,7 +937,7 @@
                             <span>WhatsApp notifications</span>
                         </li>
                     </ul>
-                    <a href="#contact" class="block w-full bg-green-600 text-white text-center py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                    <a href="#signup" class="block w-full bg-green-600 text-white text-center py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
                         Start Free Trial
                     </a>
                 </div>
@@ -974,7 +970,7 @@
                             <span>WhatsApp notifications</span>
                         </li>
                     </ul>
-                    <a href="#contact" class="block w-full bg-primary text-white text-center py-3 rounded-lg font-semibold hover:bg-slate-800 transition-colors">
+                    <a href="#signup" class="block w-full bg-primary text-white text-center py-3 rounded-lg font-semibold hover:bg-slate-800 transition-colors">
                         Get Started
                     </a>
                 </div>
@@ -1012,7 +1008,7 @@
                             <span>Advanced menu management</span>
                         </li>
                     </ul>
-                    <a href="#contact" class="block w-full bg-accent text-white text-center py-3 rounded-lg font-semibold hover:bg-cyan-700 transition-colors">
+                    <a href="#signup" class="block w-full bg-accent text-white text-center py-3 rounded-lg font-semibold hover:bg-cyan-700 transition-colors">
                         Get Started
                     </a>
                 </div>
@@ -1045,7 +1041,7 @@
                             <span>Custom integrations</span>
                         </li>
                     </ul>
-                    <a href="#contact" class="block w-full bg-primary text-white text-center py-3 rounded-lg font-semibold hover:bg-slate-800 transition-colors">
+                    <a href="#signup" class="block w-full bg-primary text-white text-center py-3 rounded-lg font-semibold hover:bg-slate-800 transition-colors">
                         Get Started
                     </a>
                 </div>
@@ -1704,13 +1700,22 @@
                             </ul>
                         </div>
                         
-                        <div class="form-group-signup">
-                            <label class="flex items-center gap-3 cursor-pointer">
-                                <input type="checkbox" name="agreeTerms" id="agreeTerms" required class="flex-shrink-0 w-5 h-5 cursor-pointer">
+                        <div class="form-group-signup" id="termsFormGroup">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" 
+                                    name="agreeTerms" 
+                                    id="agreeTerms" 
+                                    class="flex-shrink-0 w-5 h-5 cursor-pointer mt-0.5 peer" 
+                                    aria-required="true">
                                 <span class="text-sm text-slate-600">
                                     I agree to the <a href="terms.html" target="_blank" class="text-accent hover:underline font-semibold">Terms of Service</a> and <a href="privacy.html" target="_blank" class="text-accent hover:underline font-semibold">Privacy Policy</a>
                                 </span>
                             </label>
+                            <!-- Custom error message (visually aligned with checkbox) -->
+                            <div id="termsError" class="mt-1 pl-8 text-sm text-red-500 hidden flex items-start gap-1">
+                                <i data-lucide="alert-circle" class="w-4 h-4 mt-0.5 flex-shrink-0"></i>
+                                <span>Please agree to the terms to continue</span>
+                            </div>
                         </div>
                         
                         <div class="form-actions">
@@ -1841,25 +1846,35 @@
     setTimeout(loadBot, 3000); // Fallback after 3 seconds
 
     // Signup Modal Functionality
-const signupModal = document.getElementById('signupModal');
-const closeSignupModal = document.getElementById('closeSignupModal');
-const signupForm = document.getElementById('signupForm');
-let currentStep = 1;
-let selectedPlanFromPricing = 'free';
+    const signupModal = document.getElementById('signupModal');
+    const closeSignupModal = document.getElementById('closeSignupModal');
+    const signupForm = document.getElementById('signupForm');
+    let currentStep = 1;
+    let selectedPlanFromPricing = 'free';
 
     // Open modal function
+   
     function openSignupModal(plan = 'free') {
         selectedPlanFromPricing = plan;
         signupModal.classList.add('active');
         document.body.style.overflow = 'hidden';
         
+        // Map plan names to their radio button IDs
+        const planIdMap = {
+            'free': 'planFree',
+            'starter': 'planStarter',
+            'professional': 'planPro',  // This was the bug!
+            'premium': 'planPremium'
+        };
+        
         // Pre-select plan
-        const planRadio = document.getElementById(`plan${plan.charAt(0).toUpperCase() + plan.slice(1)}`);
+        const planRadio = document.getElementById(planIdMap[plan]);
         if (planRadio) {
             planRadio.checked = true;
             updatePlanCardSelection();
         }
-        
+
+
         // Reset to step 1
         goToStep(1);
         
@@ -1881,7 +1896,7 @@ let selectedPlanFromPricing = 'free';
     });
 
     // Attach modal open to all CTA buttons
-    document.querySelectorAll('a[href="#contact"]').forEach(button => {
+    document.querySelectorAll('a[href="#signup"]').forEach(button => {
         // Check if it's in pricing section
         const pricingCard = button.closest('.bg-slate-50');
         if (pricingCard) {
@@ -1983,6 +1998,19 @@ let selectedPlanFromPricing = 'free';
         }
     }
 
+
+    // Clear terms error when checkbox is checked
+        const agreeTermsCheckbox = document.getElementById('agreeTerms');
+        if (agreeTermsCheckbox) {
+            agreeTermsCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    document.getElementById('termsError').classList.add('hidden');
+                    this.classList.remove('ring-2', 'ring-red-500');
+                    document.getElementById('termsFormGroup').style.borderLeft = '';
+                }
+            });
+    }       
+
     // Update plan summary
     function updatePlanSummary() {
         const selectedPlan = document.querySelector('input[name="selectedPlan"]:checked');
@@ -2062,14 +2090,28 @@ let selectedPlanFromPricing = 'free';
     signupForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Check terms agreement
-        if (!document.getElementById('agreeTerms').checked) {
-            const termsCheckbox = document.getElementById('agreeTerms');
-            termsCheckbox.focus();
-            termsCheckbox.closest('.form-group-signup').style.borderLeft = '4px solid #ef4444';
-            setTimeout(() => {
-                termsCheckbox.closest('.form-group-signup').style.borderLeft = '';
-            }, 2000);
+    // Check terms agreement with custom validation
+        const termsCheckbox = document.getElementById('agreeTerms');
+        const termsError = document.getElementById('termsError');
+        const termsFormGroup = document.getElementById('termsFormGroup');
+
+        if (!termsCheckbox.checked) {
+            e.preventDefault();
+            
+            // Show custom error message
+            termsError.classList.remove('hidden');
+            
+            // Visual feedback
+            termsCheckbox.classList.add('ring-2', 'ring-red-500');
+            termsFormGroup.style.borderLeft = '3px solid #ef4444';
+            
+            // Scroll to checkbox if off-screen
+            if (!isElementInViewport(termsCheckbox)) {
+                termsCheckbox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            // Focus checkbox
+            setTimeout(() => termsCheckbox.focus(), 100);
             return;
         }
         
@@ -2088,13 +2130,12 @@ let selectedPlanFromPricing = 'free';
         
         try {
             // Send to your backend or email service
-            const response = await fetch('https://api.web3forms.com/submit', {
+            const response = await fetch('lwxetuf9burkr3a8uk9lbwjjj1kpz3o6@hook.us2.make.com', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    access_key: 'b10835e6-7ea6-4536-b6dc-b6089412c4c4',
                     subject: 'New Tap & Serve Signup',
                     from_name: 'Arrilan Tap & Serve Signup',
                     ...data
@@ -2148,6 +2189,16 @@ let selectedPlanFromPricing = 'free';
         
         // Scroll to top
         document.querySelector('.signup-modal-content').scrollTop = 0;
+    }
+
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
     }
 
 </script>
