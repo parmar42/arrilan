@@ -499,6 +499,25 @@
                 grid-template-columns: 1fr;
             }
         }
+
+    /* Better checkbox alignment */
+    .form-group-signup input[type="checkbox"] {
+        margin: 0;
+        cursor: pointer;
+    }
+
+    .form-group-signup label.flex {
+        cursor: pointer;
+    }
+
+    /* Animate spin for loading icon */
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    .animate-spin {
+        animation: spin 1s linear infinite;
+    }
         
     </style>
 </head>
@@ -1686,9 +1705,11 @@
                         </div>
                         
                         <div class="form-group-signup">
-                            <label class="flex items-start gap-2">
-                                <input type="checkbox" name="agreeTerms" id="agreeTerms" required>
-                                <span class="text-sm">I agree to the <a href="terms.html" target="_blank" class="text-accent hover:underline">Terms of Service</a> and <a href="privacy.html" target="_blank" class="text-accent hover:underline">Privacy Policy</a></span>
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                <input type="checkbox" name="agreeTerms" id="agreeTerms" required class="flex-shrink-0 w-5 h-5 cursor-pointer">
+                                <span class="text-sm text-slate-600">
+                                    I agree to the <a href="terms.html" target="_blank" class="text-accent hover:underline font-semibold">Terms of Service</a> and <a href="privacy.html" target="_blank" class="text-accent hover:underline font-semibold">Privacy Policy</a>
+                                </span>
                             </label>
                         </div>
                         
@@ -2043,13 +2064,18 @@ let selectedPlanFromPricing = 'free';
         
         // Check terms agreement
         if (!document.getElementById('agreeTerms').checked) {
-            alert('Please agree to the Terms of Service and Privacy Policy');
+            const termsCheckbox = document.getElementById('agreeTerms');
+            termsCheckbox.focus();
+            termsCheckbox.closest('.form-group-signup').style.borderLeft = '4px solid #ef4444';
+            setTimeout(() => {
+                termsCheckbox.closest('.form-group-signup').style.borderLeft = '';
+            }, 2000);
             return;
         }
         
         const submitBtn = document.getElementById('submitForm');
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Processing...';
+        submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Processing...';
         
         // Collect form data
         const formData = new FormData(signupForm);
@@ -2076,20 +2102,53 @@ let selectedPlanFromPricing = 'free';
             });
             
             if (response.ok) {
-                // Success
-                alert('Thank you! Your signup request has been received. We\'ll contact you within 24 hours to complete your setup.');
-                closeModal();
-                signupForm.reset();
+                // Show success step
+                showSuccessStep();
             } else {
                 throw new Error('Submission failed');
             }
         } catch (error) {
             alert('There was an error submitting your request. Please try again or contact us directly.');
-        } finally {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Complete Sign Up';
+            submitBtn.innerHTML = 'Complete Sign Up <i data-lucide="send" class="w-5 h-5"></i>';
+            lucide.createIcons();
         }
     });
+
+    // Success step function
+    function showSuccessStep() {
+        // Hide all form steps
+        document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+        
+        // Update progress bar to show completion
+        document.querySelectorAll('.progress-step').forEach(bar => {
+            bar.classList.remove('active');
+            bar.classList.add('completed');
+        });
+        
+        // Show success message
+        const modalBody = document.querySelector('.signup-modal-body');
+        modalBody.innerHTML = `
+            <div class="text-center py-12">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i data-lucide="check-circle" class="w-12 h-12 text-green-500"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-primary mb-4">Thank You!</h2>
+                <p class="text-lg text-slate-600 mb-8 max-w-md mx-auto">
+                    Your signup request has been received. We'll contact you within 24 hours to complete your setup.
+                </p>
+                <button type="button" class="btn-primary-signup inline-block" onclick="closeModal(); location.reload();">
+                    Done
+                </button>
+            </div>
+        `;
+        
+        // Re-initialize Lucide icons
+        lucide.createIcons();
+        
+        // Scroll to top
+        document.querySelector('.signup-modal-content').scrollTop = 0;
+    }
 
 </script>
 
