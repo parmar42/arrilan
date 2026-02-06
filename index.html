@@ -2130,12 +2130,13 @@
         
         try {
             // Send to your backend or email service
-            const response = await fetch('a22dg5md7wal39oyxb7ntjiqb792bquy@hook.us2.make.com', {
+            const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    access_key: 'b10835e6-7ea6-4536-b6dc-b6089412c4c4',
                     subject: 'New Tap & Serve Signup',
                     from_name: 'Arrilan Tap & Serve Signup',
                     ...data
