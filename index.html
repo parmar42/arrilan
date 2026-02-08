@@ -2127,12 +2127,11 @@
         const selectedPlan = document.querySelector('input[name="selectedPlan"]:checked');
         data.selectedPlan = selectedPlan ? selectedPlan.value : 'free';
         data.selectedPlanPrice = selectedPlan ? selectedPlan.dataset.price : '0';
-       
-        require('dotenv').config();
-        const MAKE_WEBHOOK_URL = process.env.MAKE_WEBHOOK_URL;
-
+        
         try {
             // Send to your backend or email service
+            const MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/s8mus8fe9xylphacjw982xndl3tyk10h';
+
             const response = await fetch(MAKE_WEBHOOK_URL, {
                 method: 'POST',
                 headers: {
