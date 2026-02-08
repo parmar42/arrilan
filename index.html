@@ -1735,7 +1735,6 @@
     <!-- Lucide Icons Script -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
-
         lucide.createIcons();
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1789,11 +1788,7 @@
         setTimeout(() => lucide.createIcons(), 100);
     </script>
     <script>
-
-    require('dotenv').config();
-        const MAKE_WEBHOOK_URL = process.env.MAKE_WEBHOOK_URL;
     // Currency Toggle Script
-    
     const toggle = document.getElementById('currencyToggle');
     const toggleCircle = toggle.querySelector('span');
     const currencySymbols = document.querySelectorAll('.currency-symbol');
@@ -2132,10 +2127,12 @@
         const selectedPlan = document.querySelector('input[name="selectedPlan"]:checked');
         data.selectedPlan = selectedPlan ? selectedPlan.value : 'free';
         data.selectedPlanPrice = selectedPlan ? selectedPlan.dataset.price : '0';
-        
+       
+        require('dotenv').config();
+        const MAKE_WEBHOOK_URL = process.env.MAKE_WEBHOOK_URL;
+
         try {
             // Send to your backend or email service
-
             const response = await fetch(MAKE_WEBHOOK_URL, {
                 method: 'POST',
                 headers: {
