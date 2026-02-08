@@ -9,11 +9,7 @@
         }
       ]
     }
-  ]
-}
-
-{
-  "headers": [ /* your existing canonical config */ ],
+  ],
   "rewrites": [
     {
       "source": "/api/make",
