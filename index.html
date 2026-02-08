@@ -1888,12 +1888,6 @@
         document.body.style.overflow = '';
     }
 
-    closeSignupModal.addEventListener('click', closeModal);
-    signupModal.addEventListener('click', function(e) {
-        if (e.target === signupModal) {
-            closeModal();
-        }
-    });
 
     // Attach modal open to all CTA buttons
     document.querySelectorAll('a[href="#signup"]').forEach(button => {
