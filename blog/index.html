@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Restaurant & Business Insights | Arrilan Systems</title>
+    <meta name="description" content="Expert insights on restaurant automation, business efficiency, and cost reduction for Barbados businesses. Learn how to work smarter, not harder.">
+    <meta name="keywords" content="Barbados business blog, restaurant automation, business efficiency, cost reduction, Tap & Serve">
+    <meta name="robots" content="index, follow">
+
+<link rel="icon" href="/arrilan-favicon.ico"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    primary: '#0F172A',
+                    accent: '#06B6D4',
+                }
+            }
+        }
+    }
+</script>
+<style>
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        background: white;
+        z-index: 1000;
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    }
+    .mobile-menu.active {
+        right: 0;
+    }
+    .mobile-menu-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .mobile-menu-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #0f172a;
+    }
+    .mobile-menu-nav {
+        padding: 1.5rem;
+    }
+    .mobile-menu-nav a {
+        display: block;
+        padding: 0.75rem 0;
+        color: #0f172a;
+        text-decoration: none;
+        font-weight: 500;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .mobile-menu-nav a:last-child {
+        border-bottom: none;
+    }
+    .mobile-menu-cta {
+        padding: 0 1.5rem 1.5rem;
+    }
+    .mobile-menu-cta a {
+        display: block;
+        text-align: center;
+        background: #06B6D4;
+        color: white;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+    .overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .article-card {
+        transition: all 0.3s ease;
+    }
+    
+    .article-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(6, 182, 212, 0.15);
+    }
+    
+    .article-card:hover .article-image {
+        transform: scale(1.05);
+    }
+    
+    .article-image {
+        transition: transform 0.3s ease;
+    }
+    
+    .tag {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: #f0fdff;
+        color: #06B6D4;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    .featured-badge {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background: linear-gradient(135deg, #06B6D4 0%, #0891B2 100%);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-weight: 700;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+    }
+</style>
+```
+
+</head>
+<body class="font-sans text-slate-800 bg-slate-50">
+    <!-- Header -->
+    <header class="bg-white/70 backdrop-blur-3xl fixed w-full top-0 z-50 shadow-sm">
+        <nav class="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="https://arrilan.com/index.html">
+                <img src="https://raw.githubusercontent.com/parmar42/images/main/assets/arrilan%20logo%204.png" width="150" alt="Arrilan Logo">
+            </a>
+
+```
+        <!-- Desktop Navigation -->
+        <ul class="hidden md:flex gap-8 items-center">
+            <li><a href="https://arrilan.com/index.html#home-zone" class="text-slate-800 font-medium hover:text-accent transition-colors">Home</a></li>
+            <li><a href="https://arrilan.com/index.html#systems" class="text-slate-800 font-medium hover:text-accent transition-colors">Systems</a></li>
+            <li><a href="https://arrilan.com/index.html#tap-serve" class="text-slate-800 font-medium hover:text-accent transition-colors">Tap & Serve</a></li>
+            <li><a href="blog.html" class="text-accent font-medium">Blog</a></li>
+            <li><a href="https://arrilan.com/index.html#contact" class="text-slate-800 font-medium hover:text-accent transition-colors">Contact</a></li>
+        </ul>
+        
+        <a href="https://arrilan.com/index.html#contact" class="hidden md:block bg-accent text-white px-6 py-3 rounded-lg font-semibold hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/30 transition-all">
+            Get Started
+        </a>
+        
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-primary text-2xl" id="mobile-menu-btn">
+            <i data-lucide="menu"></i>
+        </button>
+    </nav>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+        <img src="https://raw.githubusercontent.com/parmar42/images/main/assets/arrilan%20logo%204.png" width="120" alt="Arrilan Logo">
+        <button class="mobile-menu-close" id="mobile-menu-close">
+            <i data-lucide="x"></i>
+        </button>
+    </div>
+    <nav class="mobile-menu-nav">
+        <a href="https://arrilan.com/index.html#home-zone">Home</a>
+        <a href="https://arrilan.com/index.html#systems">Systems</a>
+        <a href="https://arrilan.com/index.html#tap-serve">Tap & Serve</a>
+        <a href="blog.html">Blog</a>
+        <a href="https://arrilan.com/index.html#contact">Contact</a>
+    </nav>
+    <div class="mobile-menu-cta">
+        <a href="https://arrilan.com/index.html#contact">Get Started</a>
+    </div>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Hero Section -->
+<section class="pt-32 pb-16 px-6 lg:px-8 bg-gradient-to-br from-primary to-slate-800 text-white">
+    <div class="max-w-4xl mx-auto text-center">
+        <p class="text-accent font-semibold mb-4 text-sm uppercase tracking-wide">Arrilan Insights</p>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+            Work Smarter, Not Harder
+        </h1>
+        <p class="text-xl md:text-2xl text-slate-300 mb-8">
+            Expert insights on restaurant automation, cost reduction, and business efficiency for Barbados businesses.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center text-sm">
+            <span class="tag">Restaurant Tips</span>
+            <span class="tag">Automation</span>
+            <span class="tag">Cost Savings</span>
+            <span class="tag">Barbados Business</span>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<main class="py-16 px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        
+        <!-- Featured Article -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-primary mb-8 flex items-center gap-3">
+                <i data-lucide="star" class="w-8 h-8 text-accent"></i>
+                Featured Article
+            </h2>
+            
+            <article class="article-card bg-white rounded-2xl shadow-lg overflow-hidden relative">
+                <span class="featured-badge">Featured</span>
+                <div class="grid md:grid-cols-2 gap-0">
+                    <div class="overflow-hidden">
+                        <img src="https://raw.githubusercontent.com/parmar42/images/main/assets/tap-serve-system-artwork.webp" 
+                             alt="Restaurant automation dashboard" 
+                             class="article-image w-full h-full object-cover">
+                    </div>
+                    <div class="p-8 md:p-12 flex flex-col justify-center">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="tag">Must Read</span>
+                            <span class="text-sm text-slate-500">8 min read</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-primary mb-4">
+                            <a href="blog-barbados-restaurant-automation.html" class="hover:text-accent transition-colors">
+                                How Barbados Restaurants Can Thrive Amid Rising Costs
+                            </a>
+                        </h3>
+                        <p class="text-slate-600 text-lg mb-6 leading-relaxed">
+                            Running a restaurant in Barbados feels like fighting an uphill battle. Discover how smart software tools are helping businesses worldwide cut costs by up to 71% and boost profits by 32%—and how you can do the same.
+                        </p>
+                        <div class="flex items-center gap-4 text-sm text-slate-500 mb-6">
+                            <span class="flex items-center gap-2">
+                                <i data-lucide="calendar" class="w-4 h-4"></i>
+                                February 2026
+                            </span>
+                            <span>•</span>
+                            <span>Arrilan Systems</span>
+                        </div>
+                        <a href="blog-barbados-restaurant-automation.html" class="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all">
+                            Read full article
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Latest Articles -->
+        <section>
+            <h2 class="text-3xl font-bold text-primary mb-8 flex items-center gap-3">
+                <i data-lucide="book-open" class="w-8 h-8 text-accent"></i>
+                Latest Articles
+            </h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Article 2 - Coming Soon -->
+                <article class="article-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="overflow-hidden h-48 bg-gradient-to-br from-accent/20 to-cyan-100">
+                        <div class="article-image w-full h-full flex items-center justify-center">
+                            <i data-lucide="clock" class="w-16 h-16 text-accent opacity-50"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="tag">Coming Soon</span>
+                        <h3 class="text-xl font-bold text-primary mt-4 mb-3">
+                            WhatsApp for Business: Your Restaurant's Secret Weapon
+                        </h3>
+                        <p class="text-slate-600 mb-4">
+                            Why the most successful Caribbean restaurants are ditching traditional ordering for WhatsApp automation—and how you can too.
+                        </p>
+                        <div class="flex items-center gap-3 text-sm text-slate-500">
+                            <span class="flex items-center gap-2">
+                                <i data-lucide="calendar" class="w-4 h-4"></i>
+                                Coming Soon
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3 - Coming Soon -->
+                <article class="article-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="overflow-hidden h-48 bg-gradient-to-br from-accent/20 to-cyan-100">
+                        <div class="article-image w-full h-full flex items-center justify-center">
+                            <i data-lucide="clock" class="w-16 h-16 text-accent opacity-50"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="tag">Coming Soon</span>
+                        <h3 class="text-xl font-bold text-primary mt-4 mb-3">
+                            Food Waste is Killing Your Profits: Here's the Fix
+                        </h3>
+                        <p class="text-slate-600 mb-4">
+                            A simple 3-step system that helped one Barbados restaurant cut food waste by 43% in 60 days—without changing suppliers.
+                        </p>
+                        <div class="flex items-center gap-3 text-sm text-slate-500">
+                            <span class="flex items-center gap-2">
+                                <i data-lucide="calendar" class="w-4 h-4"></i>
+                                Coming Soon
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 4 - Coming Soon -->
+                <article class="article-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="overflow-hidden h-48 bg-gradient-to-br from-accent/20 to-cyan-100">
+                        <div class="article-image w-full h-full flex items-center justify-center">
+                            <i data-lucide="clock" class="w-16 h-16 text-accent opacity-50"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="tag">Coming Soon</span>
+                        <h3 class="text-xl font-bold text-primary mt-4 mb-3">
+                            The Real Cost of "Cheap" Labor (And What to Do Instead)
+                        </h3>
+                        <p class="text-slate-600 mb-4">
+                            Why hiring more people isn't fixing your staffing problems—and the automation alternatives that actually work for small teams.
+                        </p>
+                        <div class="flex items-center gap-3 text-sm text-slate-500">
+                            <span class="flex items-center gap-2">
+                                <i data-lucide="calendar" class="w-4 h-4"></i>
+                                Coming Soon
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Newsletter CTA -->
+        <section class="mt-16 bg-gradient-to-br from-accent to-cyan-600 rounded-2xl p-8 md:p-12 text-white text-center">
+            <i data-lucide="mail" class="w-12 h-12 mx-auto mb-4 opacity-90"></i>
+            <h2 class="text-3xl font-bold mb-4">Want More Insights Like These?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+                Get practical tips on reducing costs, automating workflows, and growing your Barbados business—straight to your inbox.
+            </p>
+            <a href="https://arrilan.com/index.html#contact" class="inline-flex items-center gap-2 bg-white text-accent px-8 py-4 rounded-lg font-semibold text-lg hover:-translate-y-1 hover:shadow-xl transition-all">
+                Get Free Business Analysis
+                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </a>
+            <p class="text-sm mt-4 opacity-75">No spam. Unsubscribe anytime. We respect your inbox.</p>
+        </section>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-primary text-white py-16 px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+            <div>
+                <h3 class="text-2xl font-bold mb-4 text-accent">Arrilan Systems</h3>
+                <p class="text-slate-300 mb-4">Business automation designed for Barbados.</p>
+                <div class="flex gap-4">
+                    <a href="https://instagram.com" target="_blank" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent hover:-translate-y-1 transition-all">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://facebook.com" target="_blank" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent hover:-translate-y-1 transition-all">
+                        <i data-lucide="facebook" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-semibold mb-4 text-accent">Solutions</h3>
+                <ul class="space-y-2 text-slate-300">
+                    <li><a href="https://arrilan.com/index.html#systems" class="hover:text-accent transition-colors">Restaurant Automation</a></li>
+                    <li><a href="https://arrilan.com/index.html#tap-serve" class="hover:text-accent transition-colors">Tap & Serve</a></li>
+                    <li><a href="https://arrilan.com/index.html#systems" class="hover:text-accent transition-colors">Custom Workflows</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-semibold mb-4 text-accent">Company</h3>
+                <ul class="space-y-2 text-slate-300">
+                    <li><a href="https://arrilan.com/index.html#about" class="hover:text-accent transition-colors">About</a></li>
+                    <li><a href="blog.html" class="hover:text-accent transition-colors">Blog</a></li>
+                    <li><a href="https://arrilan.com/index.html#contact" class="hover:text-accent transition-colors">Contact</a></li>
+                    <li><a href="terms.html" class="hover:text-accent transition-colors">Terms</a></li>
+                    <li><a href="privacy.html" class="hover:text-accent transition-colors">Privacy</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-semibold mb-4 text-accent">Get Started</h3>
+                <a href="https://arrilan.com/index.html#contact" class="inline-flex items-center gap-2 bg-accent text-white px-6 py-3 rounded-lg font-semibold hover:bg-cyan-700 transition-all mb-4">
+                    Free Consultation
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <p class="text-slate-300 text-sm">Based in Barbados, serving the Caribbean</p>
+            </div>
+        </div>
+        
+        <div class="border-t border-white/10 pt-8 text-center text-slate-400">
+            <p>&copy; 2026 Arrilan Systems. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+
+    // Mobile menu functionality
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('overlay');
+
+    function openMobileMenu() {
+        mobileMenu.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    mobileMenuBtn.addEventListener('click', openMobileMenu);
+    mobileMenuClose.addEventListener('click', closeMobileMenu);
+    overlay.addEventListener('click', closeMobileMenu);
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) {
+            closeMobileMenu();
+        }
+    });
+</script>
+
+</body>
+</html>
