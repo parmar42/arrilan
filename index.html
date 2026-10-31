@@ -21,17 +21,22 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#0F172A',
-                        accent: '#06B6D4',
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    primary: '#0F172A',
+                    accent: '#06B6D4',
+                    butta: {
+                        DEFAULT: '#F5B800',   // main brand color: replace
+                        dark:    '#C99700',   // hover and gradient end: replace
+                        light:   '#FFF8E1'    // soft tint backgrounds: replace
                     }
                 }
             }
         }
-    </script>
+    }
+</script>
     <style>
         @keyframes fadeInUp {
             from {
@@ -935,15 +940,16 @@
         </div>
     </section>
 
-    <!-- Tap & Serve Product Section -->
+   <!-- Butta Product Section -->
     <section id="tap-serve" class="bg-white py-24 px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
-                <div class="logo-box"><img src="/butta_gold_on_black_logo.png" alt="butta" class= "butta"></div>
-                <p class="text-xl text-slate-600 mb-2">Dedicated Restaurant Automation System</p>
-                <p class="text-lg text-slate-600">A pre-engineered automation system designed specifically for food service operations.</p>
-                <img src="https://raw.githubusercontent.com/parmar42/images/main/assets/tap-serve-system-lower.webp" alt="Tap-Serve System" class="mx-auto mt-12">
-            </div>
+            <img src="butta_gold_on_black_logo.png" alt="Butta logo" class="mx-auto h-16 md:h-20 mb-6">
+            <h2 class="text-3xl md:text-5xl font-bold text-primary mb-4">Butta</h2>
+            <p class="text-xl text-slate-600 mb-2">Dedicated Restaurant Automation System</p>
+            <p class="text-lg text-slate-600">A pre-engineered automation system designed specifically for food service operations.</p>
+            <img src="https://raw.githubusercontent.com/parmar42/images/main/assets/tap-serve-system-lower.webp" alt="Butta System" class="mx-auto mt-12">
+        </div>
             
       
 
