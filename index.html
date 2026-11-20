@@ -97,7 +97,8 @@
         .hero-row { display: flex; flex-wrap: wrap; gap: 28px 64px; align-items: flex-end; justify-content: space-between; margin-top: clamp(28px, 4vw, 48px); }
         .hero-row .lede { flex: 1 1 28rem; }
         .hero-actions { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; }
-        .hero-photo { margin-top: clamp(40px, 6vw, 72px); width: 100%; aspect-ratio: 1920 / 795; max-height: 82vh; object-fit: cover; object-position: 45% 50%; }
+        .hero picture { display: contents; }
+        .hero-photo { margin-top: clamp(40px, 6vw, 72px); width: 100%; height: auto; aspect-ratio: 1920 / 795; max-height: 82vh; object-fit: cover; object-position: 45% 50%; }
         @media (max-width: 640px) { .hero-photo { aspect-ratio: 4 / 3; object-position: 32% 50%; } }
 
         /* Why section */
@@ -389,7 +390,10 @@
                     </div>
                 </div>
             </div>
-            <img class="hero-photo" src="https://raw.githubusercontent.com/parmar42/images/refs/heads/main/butta-promo-pic.webp" alt="A customer orders from her phone while a chef checks the new order on a Butta kitchen screen" width="1920" height="795">
+            <picture>
+                <source media="(max-width: 640px)" srcset="butta-hero-m.webp" width="1200" height="900">
+                <img class="hero-photo" src="butta-hero.webp" alt="Butta on a counter tablet, a kitchen screen and a customer's phone, all showing the same order" width="1920" height="795">
+            </picture>
         </section>
 
         <!-- Where restaurants lose money -->
