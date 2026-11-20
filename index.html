@@ -20,7 +20,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400..600&family=Hanken+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --blue: #1688EE;
@@ -196,6 +196,30 @@
         .plan-featured .btn { background: var(--butta-navy); }
         .pricing-foot { margin-top: 28px; color: #3C4A5F; }
 
+        /* BarbadosMenu */
+        .bm { display: grid; grid-template-columns: 1fr; scroll-margin-top: var(--header-h); font-family: 'Hanken Grotesk', var(--font); }
+        .bm-copy { background: #06393D; color: #F2FBFB; padding: clamp(56px, 8vw, 96px) var(--pad); }
+        .bm-mark { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.04em; }
+        .bm-mark span { color: #00CDCC; }
+        .bm-h2 { margin: 24px 0 20px; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: clamp(2.6rem, 5.4vw, 4rem); line-height: 1.02; letter-spacing: -0.015em; max-width: 12ch; }
+        .bm-lede { font-size: 1.1875rem; line-height: 1.55; color: #BFD9DA; max-width: 28rem; }
+        .bm-points { margin: 28px 0 36px; max-width: 28rem; border-bottom: 1px solid #2B5F63; }
+        .bm-points li { padding: 12px 0; border-top: 1px solid #2B5F63; }
+        .bm-actions { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: center; }
+        .bm-btn { display: inline-flex; background: #00CDCC; color: #06292D; font-weight: 700; padding: 15px 26px; text-decoration: none; border: 2px solid #00CDCC; transition: background .15s, border-color .15s; }
+        .bm-btn:hover { background: #fff; border-color: #fff; }
+        .bm-link { font-weight: 700; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+        .bm-link:hover { color: #00CDCC; }
+        .bm-copy :focus-visible { outline-color: #00CDCC; }
+        .bm-shots { background: #E9F0F0; display: flex; justify-content: center; align-items: flex-start; gap: 0; padding: 48px 20px 0; overflow: hidden; }
+        .bm-shots img { width: min(44vw, 290px); height: auto; flex: none; }
+        .bm-shots img + img { margin-left: -28px; margin-top: -24px; width: min(46vw, 316px); }
+        @media (min-width: 900px) {
+            .bm { grid-template-columns: 1fr 1fr; }
+            .bm-copy { padding-left: max(var(--pad), calc((100vw - 1200px) / 2 + var(--pad))); padding-right: clamp(32px, 5vw, 64px); }
+            .bm-shots { padding-top: 120px; }
+        }
+
         /* Process */
         .process { display: grid; gap: 40px; margin-top: 56px; counter-reset: p; }
         .process li { counter-increment: p; border-top: 3px solid var(--ink); padding-top: 18px; }
@@ -320,6 +344,7 @@
             <ul class="nav-list">
                 <li><a href="#services">Services</a></li>
                 <li><a href="#butta">Butta</a></li>
+                <li><a href="#barbadosmenu">BarbadosMenu</a></li>
                 <li><a href="#process">How we work</a></li>
                 <li><a href="https://arrilan.com/blog">Blog</a></li>
                 <li><a href="#about">About</a></li>
@@ -339,6 +364,7 @@
         <nav aria-label="Mobile">
             <a href="#services">Services</a>
             <a href="#butta">Butta</a>
+            <a href="#barbadosmenu">BarbadosMenu</a>
             <a href="#process">How we work</a>
             <a href="https://arrilan.com/blog">Blog</a>
             <a href="#about">About</a>
@@ -560,6 +586,28 @@
             </div>
         </section>
 
+        <!-- BarbadosMenu -->
+        <section class="bm" id="barbadosmenu" aria-label="BarbadosMenu">
+            <div class="bm-copy">
+                <p class="bm-mark">barbados<span>menu</span></p>
+                <h2 class="bm-h2">Every menu in Barbados, live.</h2>
+                <p class="bm-lede">Search a dish, pick a parish, see who's open now. Real menus from real kitchens, with prices in BBD or US$.</p>
+                <ul class="bm-points">
+                    <li>Hours, phone and every dish, kept current</li>
+                    <li>Order now or book a table from the restaurant's page</li>
+                    <li>Free for restaurants to list</li>
+                </ul>
+                <div class="bm-actions">
+                    <a class="bm-btn" href="https://barbadosmenu.com" target="_blank" rel="noopener">Visit barbadosmenu.com</a>
+                    <a class="bm-link" href="https://barbadosmenu.com" target="_blank" rel="noopener">Run a restaurant? List your menu free</a>
+                </div>
+            </div>
+            <div class="bm-shots">
+                <img src="barbadosmenu-phone-list.webp" alt="BarbadosMenu on a phone: a list of restaurants showing open now and when each menu was updated" width="688" height="1420" loading="lazy">
+                <img src="barbadosmenu-phone-menu.webp" alt="BarbadosMenu on a phone: a restaurant page with hours, Order now and Book a table" width="688" height="1420" loading="lazy">
+            </div>
+        </section>
+
         <!-- How we work -->
         <section class="section" id="process">
             <div class="wrap">
@@ -683,6 +731,7 @@
                         <li><a href="#services">Customer Concierge</a></li>
                         <li><a href="#services">Custom Workflows</a></li>
                         <li><a href="#butta">Butta</a></li>
+                        <li><a href="#barbadosmenu">BarbadosMenu</a></li>
                     </ul>
                 </div>
                 <div>
