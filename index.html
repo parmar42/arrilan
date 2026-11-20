@@ -199,8 +199,10 @@
         /* BarbadosMenu */
         .bm { display: grid; grid-template-columns: 1fr; scroll-margin-top: var(--header-h); font-family: 'Hanken Grotesk', var(--font); }
         .bm-copy { background: #06393D; color: #F2FBFB; padding: clamp(56px, 8vw, 96px) var(--pad); }
-        .bm-mark { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.04em; }
-        .bm-mark span { color: #00CDCC; }
+        .bm-mark { display: inline-block; background: #F6F0E4; padding: 10px 18px; line-height: 0; }
+        .bm-logo { display: block; height: 40px; width: auto; }
+        .bm-wm { display: block; line-height: 40px; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.04em; color: #06292D; }
+        .bm-wm span { color: #006B6B; }
         .bm-h2 { margin: 24px 0 20px; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: clamp(2.6rem, 5.4vw, 4rem); line-height: 1.02; letter-spacing: -0.015em; max-width: 12ch; }
         .bm-lede { font-size: 1.1875rem; line-height: 1.55; color: #BFD9DA; max-width: 28rem; }
         .bm-points { margin: 28px 0 36px; max-width: 28rem; border-bottom: 1px solid #2B5F63; }
@@ -589,7 +591,7 @@
         <!-- BarbadosMenu -->
         <section class="bm" id="barbadosmenu" aria-label="BarbadosMenu">
             <div class="bm-copy">
-                <p class="bm-mark">barbados<span>menu</span></p>
+                <p class="bm-mark"><img class="bm-logo" src="https://barbadosmenu.com/barbadosmenu_logo.png" alt="BarbadosMenu" width="261" height="44" onerror="this.outerHTML='&lt;span class=&quot;bm-wm&quot;&gt;barbados&lt;span&gt;menu&lt;/span&gt;&lt;/span&gt;'"></p>
                 <h2 class="bm-h2">Every menu in Barbados, live.</h2>
                 <p class="bm-lede">Search a dish, pick a parish, see who's open now. Real menus from real kitchens, with prices in BBD or US$.</p>
                 <ul class="bm-points">
