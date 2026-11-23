@@ -15,5 +15,13 @@
       "source": "/api/make",
       "destination": "https://hook.us2.make.com/s8mus8fe9xylphacjw982xndl3tyk10h"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/blog",
+      "destination": "/blog/index.html",
+      "permanent": true
+    }
   ]
 }
+
