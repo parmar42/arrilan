@@ -11,7 +11,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arrilan Digital Studio | Digital products and services for restaurants in Barbados and the Caribbean</title>
+    <title>Arrilan Digital Studio | Built for now. Ready for next.</title>
     <meta name="description" content="Arrilan Digital Studio builds online ordering, kitchen display screens, websites and customer chat for restaurants in Barbados and the Caribbean. We also work with retail, clinics and service businesses. Free consultation.">
     <meta name="robots" content="index, follow">
     <link rel="icon" href="/arrilan-favicon.ico"/>
@@ -169,7 +169,9 @@
         .btn-butta:hover { background: var(--butta-ink); border-color: var(--butta-ink); }
 
         .pricing { margin-top: clamp(64px, 9vw, 112px); }
-        .currency { display: flex; align-items: center; gap: 12px; margin: 0 0 28px; font-weight: 600; }
+        .toggles { display: flex; flex-wrap: wrap; gap: 16px 40px; margin: 0 0 28px; }
+        .currency { display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .save-tag { display: inline-block; margin-left: 6px; background: var(--butta-navy); color: var(--butta-yellow); font-size: 0.8rem; font-weight: 700; padding: 2px 8px; }
         .switch { position: relative; width: 56px; height: 32px; border: 0; border-radius: 16px; background: #9AA6B6; cursor: pointer; padding: 0; transition: background .2s; }
         .switch[aria-checked="true"] { background: var(--butta-navy); }
         .switch-knob { position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: transform .2s; }
@@ -196,6 +198,32 @@
         .plan .btn:hover { background: var(--butta-ink); border-color: var(--butta-ink); }
         .plan-featured .btn { background: var(--butta-navy); }
         .pricing-foot { margin-top: 28px; color: #3C4A5F; }
+        .included-all { margin-top: 40px; border-top: 3px solid var(--butta-navy); padding-top: 28px; }
+        .included-all-title { font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 24px; }
+        .inc-grid { display: grid; gap: 28px 40px; }
+        @media (min-width: 700px) { .inc-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1100px) { .inc-grid { grid-template-columns: repeat(4, 1fr); } }
+        .inc h5 { font-size: 1.1rem; font-weight: 800; margin: 0 0 12px; }
+        .inc ul { display: grid; gap: 10px; }
+        .inc li { display: flex; gap: 10px; align-items: baseline; color: #3C4A5F; }
+        .inc li::before { content: ""; width: 8px; height: 8px; background: var(--butta-navy); flex: none; }
+        .vs { background: #fff; border: 2px solid var(--butta-navy); padding: clamp(20px, 3vw, 32px); margin-bottom: 32px; }
+        .vs-lede { font-size: clamp(1.15rem, 2vw, 1.4rem); font-weight: 700; line-height: 1.35; letter-spacing: -0.015em; max-width: 44rem; }
+        .vs-rows { display: grid; gap: 14px; margin: 24px 0 18px; }
+        .vs-row { display: grid; grid-template-columns: 9.5rem 1fr 6rem; gap: 14px; align-items: center; }
+        .vs-name { font-weight: 700; }
+        .vs-track { height: 14px; background: var(--butta-cream); }
+        .vs-bar { display: block; height: 100%; background: var(--butta-navy); min-width: 6px; }
+        .vs-app .vs-bar { background: #B42318; }
+        .vs-val { font-weight: 800; text-align: right; font-variant-numeric: tabular-nums; }
+        .vs-note { font-size: 0.9rem; color: #3C4A5F; max-width: 44rem; }
+        @media (max-width: 560px) {
+            .vs-row { grid-template-columns: 1fr auto; gap: 6px 12px; }
+            .vs-track { grid-column: 1 / -1; grid-row: 2; }
+        }
+        .plan-day { font-weight: 700; margin-top: 6px; }
+        .plan-year { font-size: 0.9rem; margin-top: 2px; }
+        .plan-vs { margin: -6px 0 20px; font-size: 0.92rem; font-weight: 600; color: var(--butta-navy); }
 
         /* BarbadosMenu */
         .bm { display: grid; grid-template-columns: 1fr; scroll-margin-top: var(--header-h); font-family: 'Hanken Grotesk', var(--font); }
@@ -261,6 +289,7 @@
         .footer-grid a { text-decoration: none; }
         .footer-grid a:hover { text-decoration: underline; text-underline-offset: 4px; }
         .footer-grid p { color: var(--muted); max-width: 22rem; }
+        .footer-grid .footer-tag { font-weight: 700; color: var(--ink); font-size: 1.1rem; }
         .footer-base { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.92rem; }
 
         /* Signup modal */
@@ -522,60 +551,123 @@
 
                     <div class="pricing">
                         <h3 class="butta-h3">Simple, transparent pricing</h3>
-                        <div class="currency">
-                            <span>BBD</span>
-                            <button id="currencyToggle" class="switch" role="switch" aria-checked="false" aria-label="Show prices in US dollars"><span class="switch-knob"></span></button>
-                            <span>USD</span>
+                        <div class="toggles">
+                            <div class="currency">
+                                <span>BBD</span>
+                                <button id="currencyToggle" class="switch" role="switch" aria-checked="false" aria-label="Show prices in US dollars"><span class="switch-knob"></span></button>
+                                <span>USD</span>
+                            </div>
+                            <div class="currency">
+                                <span>Monthly</span>
+                                <button id="billingToggle" class="switch" role="switch" aria-checked="false" aria-label="Show yearly billing prices"><span class="switch-knob"></span></button>
+                                <span>Yearly <span class="save-tag">2 months free</span></span>
+                            </div>
+                        </div>
+                        <div class="vs">
+                            <p class="vs-lede">A delivery app keeps about 12% of every order. On Butta you pay one flat monthly fee, and earn some back on every order.</p>
+                            <div class="vs-rows">
+                                <div class="vs-row vs-app"><span class="vs-name">12% delivery app</span><span class="vs-track"><span class="vs-bar" style="width:100%"></span></span><span class="vs-val"><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="480" data-usd="240">600</span></span></div>
+                                <div class="vs-row"><span class="vs-name">Butta Starter</span><span class="vs-track"><span class="vs-bar" style="width:6%"></span></span><span class="vs-val"><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="29" data-usd="15">29</span></span></div>
+                                <div class="vs-row"><span class="vs-name">Butta Professional</span><span class="vs-track"><span class="vs-bar" style="width:21.7%"></span></span><span class="vs-val"><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="104" data-usd="52">104</span></span></div>
+                                <div class="vs-row"><span class="vs-name">Butta Premium</span><span class="vs-track"><span class="vs-bar" style="width:39.4%"></span></span><span class="vs-val"><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="189" data-usd="95">189</span></span></div>
+                            </div>
+                            <p class="vs-note">What a restaurant pays in a month for 100 orders at an average of <span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="40" data-usd="20">40</span>. Butta figures are the monthly fee minus what you earn back. The delivery app figure assumes it keeps 12% of each order. Butta figures use monthly billing. Your numbers will vary.</p>
                         </div>
                         <div class="plans">
                             <div class="plan pricing-card">
-                                <h4>Free Trial</h4>
+                                <h4>Free</h4>
                                 <p class="plan-price"><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="0" data-usd="0">0</span> <span class="plan-per">/month per location</span></p>
-                                <p class="plan-orders">First 100 orders</p>
+                                <p class="plan-orders">Up to 50 orders a month, unlimited staff</p>
                                 <dl class="plan-fees">
                                     <dt>Customer pays</dt><dd><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="1.50" data-usd="0.75">1.50</span> per order</dd>
                                     <dt>You earn back</dt><dd><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="0.30" data-usd="0.15">0.30</span> per order</dd>
                                 </dl>
-                                <ul><li>Digital menu</li><li>Kitchen Display System</li><li>WhatsApp order updates</li></ul>
-                                <p class="plan-note">Test Butta on your first 100 orders before you commit.</p>
-                                <a href="#signup" class="btn" data-plan="free">Start free trial</a>
+                                <ul><li>Guest ordering page, no app needed</li><li>Kitchen display screen</li><li>Live order tracking for guests</li><li>WhatsApp order updates</li><li>Card, cash, BimPay and 1stPay</li></ul>
+                                <p class="plan-note">Free for as long as you like. Your menu shows &ldquo;Powered by Butta&rdquo;. Upgrade any time.</p>
+                                <a href="#signup" class="btn" data-plan="free">Start free</a>
                             </div>
                             <div class="plan pricing-card">
                                 <h4>Starter</h4>
-                                <p class="plan-price"><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="59" data-usd="30">59</span> <span class="plan-per">/month per location</span></p>
-                                <p class="plan-orders">Unlimited orders</p>
+                                <p class="plan-price"><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="59" data-usd="30" data-bbd-y="49" data-usd-y="25">59</span> <span class="plan-per" data-m="/month per location" data-y="/month per location, billed yearly">/month per location</span></p>
+                                <p class="plan-day">About <span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="2" data-usd="1" data-bbd-y="1.65" data-usd-y="0.85">2</span> a day</p>
+                                <p class="plan-year" hidden><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="590" data-usd="300">590</span> paid once a year</p>
+                                <p class="plan-orders">Unlimited orders and staff</p>
                                 <dl class="plan-fees">
                                     <dt>Customer pays</dt><dd><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="1.50" data-usd="0.75">1.50</span> per order</dd>
                                     <dt>You earn back</dt><dd><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="0.30" data-usd="0.15">0.30</span> per order</dd>
                                 </dl>
-                                <ul><li>Digital menu</li><li>Kitchen Display System</li><li>WhatsApp order updates</li></ul>
+                                <ul><li>Guest ordering page, no app needed</li><li>Kitchen display screen</li><li>Live order tracking for guests</li><li>WhatsApp order updates</li><li>Card, cash, BimPay and 1stPay</li></ul>
+                                <p class="plan-vs">Costs less than a 12% delivery app from about 12 orders a month.</p>
                                 <a href="#signup" class="btn" data-plan="starter">Get started</a>
                             </div>
                             <div class="plan plan-featured pricing-card">
                                 <span class="plan-flag">Most popular</span>
                                 <h4>Professional</h4>
-                                <p class="plan-price"><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="149" data-usd="75">149</span> <span class="plan-per">/month per location</span></p>
-                                <p class="plan-orders">Unlimited orders</p>
+                                <p class="plan-price"><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="149" data-usd="75" data-bbd-y="124" data-usd-y="62.50">149</span> <span class="plan-per" data-m="/month per location" data-y="/month per location, billed yearly">/month per location</span></p>
+                                <p class="plan-day">About <span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="5" data-usd="2.50" data-bbd-y="4.15" data-usd-y="2.10">5</span> a day</p>
+                                <p class="plan-year" hidden><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="1,490" data-usd="750">1,490</span> paid once a year</p>
+                                <p class="plan-orders">Unlimited orders and staff</p>
                                 <dl class="plan-fees">
                                     <dt>Customer pays</dt><dd><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="1.50" data-usd="0.75">1.50</span> per order</dd>
                                     <dt>You earn back</dt><dd><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="0.45" data-usd="0.23">0.45</span> per order</dd>
                                 </dl>
-                                <ul><li>Everything in Starter</li><li>Staff ordering screen</li><li>Realtime order tracking</li><li>Premium digital menu</li><li>Advanced menu management</li><li>Reports</li></ul>
+                                <ul><li>Everything in Starter</li><li>Staff tablet for walk-ins and phone orders</li><li>Dine-in tables and bar tabs</li><li>Bills, tips and WhatsApp receipts</li><li>Manager PIN for voids and discounts</li><li>Audit trail of who approved what</li><li>Sales reports by payment and order type</li><li>Premium digital menu</li></ul>
+                                <p class="plan-vs">Costs less than a 12% delivery app from about 29 orders a month.</p>
                                 <a href="#signup" class="btn" data-plan="professional">Get started</a>
                             </div>
                             <div class="plan pricing-card">
                                 <h4>Premium</h4>
-                                <p class="plan-price"><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="249" data-usd="125">249</span> <span class="plan-per">/month per location</span></p>
-                                <p class="plan-orders">Unlimited orders</p>
+                                <p class="plan-price"><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="249" data-usd="125" data-bbd-y="207" data-usd-y="104">249</span> <span class="plan-per" data-m="/month per location" data-y="/month per location, billed yearly">/month per location</span></p>
+                                <p class="plan-day">About <span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="8.30" data-usd="4.15" data-bbd-y="6.90" data-usd-y="3.50">8.30</span> a day</p>
+                                <p class="plan-year" hidden><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="2,490" data-usd="1,250">2,490</span> paid once a year</p>
+                                <p class="plan-orders">Unlimited orders and staff</p>
                                 <dl class="plan-fees">
                                     <dt>Customer pays</dt><dd><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="1.50" data-usd="0.75">1.50</span> per order</dd>
                                     <dt>You earn back</dt><dd><span class="currency-symbol">BB$</span><span class="price-amount" data-bbd="0.60" data-usd="0.30">0.60</span> per order</dd>
                                 </dl>
                                 <ul><li>Everything in Professional</li><li>Multi-station kitchen screens</li><li>Priority support</li><li>Custom integrations</li></ul>
+                                <p class="plan-vs">Costs less than a 12% delivery app from about 47 orders a month.</p>
                                 <a href="#signup" class="btn" data-plan="premium">Get started</a>
                             </div>
                         </div>
-                        <p class="pricing-foot">Customers pay a small convenience fee on each order. You get part of it back every month. All plans include secure hosting and email support, with no long-term contracts.</p>
+                        <div class="included-all">
+                            <h4 class="included-all-title">Every plan includes</h4>
+                            <div class="inc-grid">
+                                <div class="inc">
+                                    <h5>For your guests</h5>
+                                    <ul>
+                                        <li>Order from a link, QR code or WhatsApp. No app, no account.</li>
+                                        <li>Choose options and add notes for the kitchen.</li>
+                                        <li>Follow the order live, from received to ready.</li>
+                                    </ul>
+                                </div>
+                                <div class="inc">
+                                    <h5>For your kitchen</h5>
+                                    <ul>
+                                        <li>New orders land on screen with a sound alert.</li>
+                                        <li>Card orders only appear once they're paid, so you never cook food nobody paid for.</li>
+                                        <li>One tap marks an order preparing or ready, and the guest sees it at once.</li>
+                                    </ul>
+                                </div>
+                                <div class="inc">
+                                    <h5>For your money</h5>
+                                    <ul>
+                                        <li>Take card, cash, card slip, BimPay and 1stPay, with tips recorded.</li>
+                                        <li>Prices are set on our server, so no one can change them at checkout.</li>
+                                        <li>A double tap or a weak signal never creates two orders.</li>
+                                    </ul>
+                                </div>
+                                <div class="inc">
+                                    <h5>For your menu</h5>
+                                    <ul>
+                                        <li>Mark a dish sold out and it disappears everywhere at once.</li>
+                                        <li>Sizes, extras and options for each item.</li>
+                                        <li>Change prices, photos and descriptions yourself, no developer needed.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="pricing-foot">Customers pay a small convenience fee on each order. You get part of it back every month. Every plan includes unlimited staff accounts with no per-user fees, secure hosting and email support, and no long-term contracts. Yearly billing gives you 12 months for the price of 10. Order counts assume a BB$40 (US$20) average order on monthly billing.</p>
                     </div>
                 </div>
             </div>
@@ -695,7 +787,7 @@
             <div class="footer-grid">
                 <div>
                     <img src="arrilan-logo.png" alt="Arrilan Digital Studio">
-                    <p>Digital products and services for restaurants and growing businesses in Barbados and the Caribbean.</p>
+                    <p class="footer-tag">Built for now. Ready for next.</p>
                 </div>
                 <div>
                     <h3>Services</h3>
@@ -762,13 +854,14 @@
                     <!-- Step 2 -->
                     <div class="form-step" data-step="2">
                         <h2 class="step-title">Choose your plan</h2>
-                        <p class="step-subtitle">Start with a free trial and upgrade any time</p>
+                        <p class="step-subtitle">Start free and upgrade any time</p>
                         <div class="plan-selection-cards">
-                            <label class="plan-card" for="planFree"><input type="radio" id="planFree" name="selectedPlan" value="free" data-price="0"><div class="plan-card-name">Free Trial</div><div class="plan-card-price">BB$0</div><div class="plan-card-orders">First 100 orders</div></label>
+                            <label class="plan-card" for="planFree"><input type="radio" id="planFree" name="selectedPlan" value="free" data-price="0"><div class="plan-card-name">Free</div><div class="plan-card-price">BB$0</div><div class="plan-card-orders">Up to 50 orders a month</div></label>
                             <label class="plan-card" for="planStarter"><input type="radio" id="planStarter" name="selectedPlan" value="starter" data-price="59"><div class="plan-card-name">Starter</div><div class="plan-card-price">BB$59</div><div class="plan-card-orders">Unlimited orders</div></label>
                             <label class="plan-card" for="planPro"><input type="radio" id="planPro" name="selectedPlan" value="professional" data-price="149"><div class="plan-card-name">Professional</div><div class="plan-card-price">BB$149</div><div class="plan-card-orders">Unlimited orders</div></label>
                             <label class="plan-card" for="planPremium"><input type="radio" id="planPremium" name="selectedPlan" value="premium" data-price="249"><div class="plan-card-name">Premium</div><div class="plan-card-price">BB$249</div><div class="plan-card-orders">Unlimited orders</div></label>
                         </div>
+                        <div class="fg"><span class="fg-label">Billing</span><div class="choice-row"><label><input type="radio" name="billing" value="monthly" id="billingMonthly" checked><span>Monthly</span></label><label><input type="radio" name="billing" value="yearly" id="billingYearly"><span>Yearly (2 months free)</span></label></div></div>
                         <div class="fg"><label for="orderVolume">Expected monthly order volume</label><select id="orderVolume" name="orderVolume"><option value="">Select volume</option><option value="&lt;100">Fewer than 100</option><option value="100-500">100 to 500</option><option value="500-1500">500 to 1,500</option><option value="1500+">1,500 or more</option></select></div>
                         <div class="fg"><label for="additionalNotes">Additional notes (optional)</label><textarea id="additionalNotes" name="additionalNotes" rows="3" placeholder="Any specific requirements or questions?"></textarea></div>
                         <div class="form-actions"><button type="button" class="btn btn-line" id="prevStep2">Back</button><button type="button" class="btn" id="nextStep2">Next: setup details</button></div>
@@ -790,13 +883,15 @@
                         <div class="plan-summary">
                             <div class="plan-summary-title">Your selected plan</div>
                             <div class="plan-summary-details">
-                                <div><div id="summaryPlanName" class="plan-summary-name">Free Trial</div><div id="summaryOrderLimit" class="plan-summary-orders">First 100 orders</div></div>
+                                <div><div id="summaryPlanName" class="plan-summary-name">Free</div><div id="summaryOrderLimit" class="plan-summary-orders">Up to 50 orders a month</div></div>
                                 <div id="summaryPrice" class="plan-summary-price">BB$0<small>/mo</small></div>
                             </div>
                             <ul class="plan-features-list" id="summaryFeatures">
-                                <li>Digital menu</li>
-                                <li>Kitchen Display System</li>
+                                <li>Guest ordering page, no app needed</li>
+                                <li>Kitchen display screen</li>
+                                <li>Live order tracking for guests</li>
                                 <li>WhatsApp order updates</li>
+                                <li>Card, cash, BimPay and 1stPay</li>
                             </ul>
                         </div>
                         <div class="fg" id="termsFormGroup">
@@ -837,16 +932,32 @@
         mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
         window.addEventListener('resize', () => { if (window.innerWidth >= 900) closeMobileMenu(); });
 
-        // Currency toggle
+        // Currency and billing toggles
         const toggle = document.getElementById('currencyToggle');
-        const currencySymbols = document.querySelectorAll('.currency-symbol');
-        const priceAmounts = document.querySelectorAll('.price-amount');
+        const billingToggle = document.getElementById('billingToggle');
         let isUSD = false;
+        let isYearly = false;
+        function renderPrices() {
+            document.querySelectorAll('.currency-symbol').forEach(s => { s.textContent = isUSD ? '$' : 'BB$'; });
+            document.querySelectorAll('.price-amount').forEach(a => {
+                const cur = isUSD ? 'usd' : 'bbd';
+                const y = isYearly ? a.getAttribute('data-' + cur + '-y') : null;
+                a.textContent = y || a.getAttribute('data-' + cur);
+            });
+            document.querySelectorAll('.plan-per[data-m]').forEach(p => { p.textContent = isYearly ? p.dataset.y : p.dataset.m; });
+            document.querySelectorAll('.plan-year').forEach(p => { p.hidden = !isYearly; });
+            const billingField = document.getElementById('billingYearly');
+            if (billingField) { (isYearly ? billingField : document.getElementById('billingMonthly')).checked = true; updatePlanSummary(); }
+        }
         toggle.addEventListener('click', function () {
             isUSD = !isUSD;
             toggle.setAttribute('aria-checked', String(isUSD));
-            currencySymbols.forEach(s => { s.textContent = isUSD ? '$' : 'BB$'; });
-            priceAmounts.forEach(a => { a.textContent = isUSD ? a.getAttribute('data-usd') : a.getAttribute('data-bbd'); });
+            renderPrices();
+        });
+        billingToggle.addEventListener('click', function () {
+            isYearly = !isYearly;
+            billingToggle.setAttribute('aria-checked', String(isYearly));
+            renderPrices();
         });
 
         // Chat widget: load on first interaction, or after 3 seconds
@@ -945,17 +1056,20 @@
             const selectedPlan = document.querySelector('input[name="selectedPlan"]:checked');
             if (!selectedPlan) return;
             const planData = {
-                free: { name: 'Free Trial', price: 'BB$0', orders: 'First 100 orders. You earn back BB$0.30 per order.', features: ['Digital menu', 'Kitchen Display System', 'WhatsApp order updates'] },
-                starter: { name: 'Starter', price: 'BB$59', orders: 'Unlimited orders. You earn back BB$0.30 per order.', features: ['Digital menu', 'Kitchen Display System', 'WhatsApp order updates'] },
-                professional: { name: 'Professional', price: 'BB$149', orders: 'Unlimited orders. You earn back BB$0.45 per order.', features: ['Everything in Starter', 'Staff ordering screen', 'Realtime order tracking', 'Premium digital menu', 'Advanced menu management', 'Reports'] },
-                premium: { name: 'Premium', price: 'BB$249', orders: 'Unlimited orders. You earn back BB$0.60 per order.', features: ['Everything in Professional', 'Multi-station kitchen screens', 'Priority support', 'Custom integrations'] }
+                free: { name: 'Free', price: 'BB$0', yearly: 'BB$0', orders: 'Up to 50 orders a month. You earn back BB$0.30 per order.', features: ['Guest ordering page, no app needed', 'Kitchen display screen', 'Live order tracking for guests', 'WhatsApp order updates', 'Card, cash, BimPay and 1stPay'] },
+                starter: { name: 'Starter', price: 'BB$59', yearly: 'BB$590', orders: 'Unlimited orders. You earn back BB$0.30 per order.', features: ['Guest ordering page, no app needed', 'Kitchen display screen', 'Live order tracking for guests', 'WhatsApp order updates', 'Card, cash, BimPay and 1stPay'] },
+                professional: { name: 'Professional', price: 'BB$149', yearly: 'BB$1,490', orders: 'Unlimited orders. You earn back BB$0.45 per order.', features: ['Everything in Starter', 'Staff tablet for walk-ins and phone orders', 'Dine-in tables and bar tabs', 'Bills, tips and WhatsApp receipts', 'Manager PIN for voids and discounts', 'Audit trail of who approved what', 'Sales reports by payment and order type', 'Premium digital menu'] },
+                premium: { name: 'Premium', price: 'BB$249', yearly: 'BB$2,490', orders: 'Unlimited orders. You earn back BB$0.60 per order.', features: ['Everything in Professional', 'Multi-station kitchen screens', 'Priority support', 'Custom integrations'] }
             };
             const plan = planData[selectedPlan.value];
             document.getElementById('summaryPlanName').textContent = plan.name;
-            document.getElementById('summaryPrice').innerHTML = plan.price + '<small>/mo</small>';
+            const yearlyBilling = document.getElementById('billingYearly') && document.getElementById('billingYearly').checked && selectedPlan.value !== 'free';
+            document.getElementById('summaryPrice').innerHTML = yearlyBilling ? plan.yearly + '<small>/yr</small>' : plan.price + '<small>/mo</small>';
             document.getElementById('summaryOrderLimit').textContent = plan.orders;
             document.getElementById('summaryFeatures').innerHTML = plan.features.map(f => '<li>' + f + '</li>').join('');
         }
+
+        document.querySelectorAll('input[name="billing"]').forEach(r => r.addEventListener('change', updatePlanSummary));
 
         document.querySelectorAll('input[name="hasPos"]').forEach(radio => {
             radio.addEventListener('change', function () {
@@ -985,6 +1099,7 @@
             const selectedPlan = document.querySelector('input[name="selectedPlan"]:checked');
             data.selectedPlan = selectedPlan ? selectedPlan.value : 'free';
             data.selectedPlanPrice = selectedPlan ? selectedPlan.dataset.price : '0';
+            data.billing = (document.getElementById('billingYearly').checked && data.selectedPlan !== 'free') ? 'yearly' : 'monthly';
 
             try {
                 const response = await fetch('/api/make', {
